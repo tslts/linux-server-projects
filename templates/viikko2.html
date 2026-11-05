@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>My Linux Server — Week 2</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            max-width: 850px;
+            margin: 50px auto;
+            padding: 0 24px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.7;
+            background: #eef2f6;
+            color: #263445;
+        }
+
+        header {
+            background: #172b40;
+            color: #ffffff;
+            padding: 38px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            border-left: 5px solid #58a6a6;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            color: #c3d2df;
+        }
+
+        .week {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 5px 12px;
+            border: 1px solid #6c929e;
+            border-radius: 20px;
+            color: #b9d9d9;
+            font-size: 0.85rem;
+        }
+
+        section {
+            background: #ffffff;
+            padding: 26px 30px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #dce4eb;
+            box-shadow: 0 3px 12px rgba(25, 45, 65, 0.04);
+        }
+
+        h2 {
+            color: #245574;
+            font-size: 1.2rem;
+            margin-top: 0;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        h2 span {
+            color: #70a5a5;
+            margin-right: 8px;
+        }
+
+        .note {
+            color: #718091;
+            font-size: 0.9rem;
+        }
+
+        .counter strong {
+            color: #245574;
+            font-size: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-top: 14px;
+            font-weight: 600;
+            color: #245574;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 11px 12px;
+            margin-top: 5px;
+            border: 1px solid #cbd6df;
+            border-radius: 6px;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        button {
+            margin-top: 18px;
+            padding: 11px 20px;
+            border: none;
+            border-radius: 6px;
+            background: #245574;
+            color: white;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #172b40;
+        }
+
+        .message {
+            padding: 16px 0;
+            border-bottom: 1px solid #dce4eb;
+            overflow-wrap: anywhere;
+        }
+
+        .message h3 {
+            margin: 0;
+            color: #245574;
+            font-size: 1.05rem;
+        }
+
+        .message-text {
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            color: #8492a0;
+            font-size: 0.85rem;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>My Linux Server</h1>
+        <p>Building, configuring and understanding my own server.</p>
+        <span class="week">WEEK 02 · FLASK & DATABASES</span>
+    </header>
+
+    <section>
+        <h2><span>01 /</span> Visitor counter</h2>
+        <p>
+            Flask handles requests and MariaDB stores the visitor count. Setting up a database without any GUI felt really "manual", heh. 
+        </p>
+        <p class="counter">
+            Total visits: <strong>{{ visits }}</strong>
+        </p>
+        <p class="note">
+            The count is stored in the database and persists
+            when the application restarts.
+        </p>
+    </section>
+
+    <section>
+        <h2><span>02 /</span> Application logic</h2>
+        <p>
+            Nginx forwards requests to the Flask application
+            running through Gunicorn. Flask communicates with
+            MariaDB and returns the generated HTML page.
+        </p>
+    </section>
+
+    <section>
+        <h2><span>03 /</span> Guestbook</h2>
+        <p>Say hello!</p>
+
+        <form method="post">
+            <label for="name">Name</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                maxlength="100"
+                required
+            >
+
+            <label for="message">Message</label>
+            <textarea
+                id="message"
+                name="message"
+                maxlength="5000"
+                required
+            ></textarea>
+
+            <button type="submit">Submit message</button>
+        </form>
+    </section>
+
+    <section>
+        <h2><span>04 /</span> Previous messages</h2>
+
+        {% for message in messages %}
+            <article class="message">
+                <h3>{{ message[0] }}</h3>
+                <p class="message-text">{{ message[1] }}</p>
+                <p class="note">{{ message[2] }}</p>
+            </article>
+        {% else %}
+            <p class="note">No messages yet. Be the first!</p>
+        {% endfor %}
+    </section>
+
+    <footer>
+        Linux Server Project · Week 2
+    </footer>
+</body>
+</html>
