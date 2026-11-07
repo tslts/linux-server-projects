@@ -40,17 +40,66 @@
             margin: 8px 0 0;
             color: #c3d2df;
         }
+	
+	.week-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
 
-        .week {
-            display: inline-block;
-            margin-top: 18px;
+	.week,
+        .week-nav {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            min-width: 220px;
+            margin: 0;
             padding: 5px 12px;
             border: 1px solid #6c929e;
             border-radius: 20px;
             color: #b9d9d9;
             font-size: 0.85rem;
-        }
+            line-height: 1.3;
+       	}
 
+       	.week {
+            white-space: nowrap;
+       	}
+
+       	.week-nav {
+            gap: 8px;
+       	}
+
+       	.week-nav label {
+	    display: flex;
+	    align-items: center;
+	    align-self: center;
+	    margin-top: 0;
+	    font-weight: 400;
+	    line-height: 1.3;
+	    color: #b9d9d9;
+	    white-space: nowrap;
+	}
+
+       	.week-nav select {
+            max-width: 170px;
+            padding: 4px 8px;
+            border: 1px solid #6c929e;
+            border-radius: 14px;
+            background: #172b40;
+            color: #ffffff;
+            font: inherit;
+            cursor: pointer;
+       	}
+
+       	.week-nav select option {
+            background: #172b40;
+            color: #ffffff;
+       	}
+	
         section {
             background: #ffffff;
             padding: 26px 30px;
@@ -148,13 +197,22 @@
     <header>
         <h1>My Linux Server</h1>
         <p>Building, configuring and understanding my own server.</p>
-        <span class="week">WEEK 02 · FLASK & DATABASES</span>
+        <div class="week-row">
+	<span class="week">WEEK 02 · FLASK & DATABASES</span>
+	<nav class="week-nav">
+	    <label for="week-select">Select week:</label>
+	    <select id="week-select" onchange="if (this.value) window.location.href = this.value;">
+	        <option value="/">Week 1</option>
+	        <option value="/viikko2" selected>Week 2</option>
+	    </select>
+	</nav>
+	</div>   
     </header>
 
     <section>
         <h2><span>01 /</span> Visitor counter</h2>
         <p>
-            Flask handles requests and MariaDB stores the visitor count. Setting up a database without any GUI felt really "manual", heh. 
+            Flask handles requests and MariaDB stores the visitor count. In database I have table called messages which has columns for id, name, message and timestamp for posted message. App.py inserts written message with name to a database and delivers existing messages. For visit counter there is another table with two columns: id and total. 
         </p>
         <p class="counter">
             Total visits: <strong>{{ visits }}</strong>
