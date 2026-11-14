@@ -285,7 +285,7 @@ cat > "$TEMP_FILE" <<EOF
 
     <section>
         <h2>How the script works</h2>
-        <p>The script stores command output in Bash variables using command substitution. The <code>disk_status</code> function uses an if statement to return OK when disk usage is below 80%, or WARNING at 80% and CRITICAL at 90%.</p>
+        <p>The script stores command output in Bash variables using command substitution. The <code>disk_status</code> function uses stored variable for an if statement to return OK when disk usage is below 80%, or WARNING at 80% and CRITICAL at 90%.</p>
         <p>The pipe symbol (<code>|</code>) passes the output of one command to another. For example, <code>df -P / | awk 'NR == 2 {print &#36;5}'</code> passes filesystem information to awk, which prints the usage percentage (fifth column) from the second row.</p>
         <p>The script writes a temporary HTML file and then replaces the report with the completed file.</p>
     </section>
