@@ -68,7 +68,64 @@ cat > "$TEMP_FILE" <<EOF
         margin: 8px 0 0;
         color: #c3d2df;
     }
+	.week-row {
+	    display: flex;
+	    align-items: center;
+	    flex-wrap: wrap;
+	    gap: 12px;
+	    margin-top: 20px;
+	}
 
+	.week,
+	.week-nav {
+	    display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    min-height: 40px;
+	    min-width: 220px;
+	    margin: 0;
+	    padding: 5px 12px;
+	    border: 1px solid #6c929e;
+	    border-radius: 20px;
+	    color: #b9d9d9;
+	    font-size: 0.85rem;
+	    line-height: 1.3;
+	}
+
+	.week {
+	    white-space: nowrap;
+	}
+
+	.week-nav {
+	    gap: 8px;
+	}
+
+	.week-nav label {
+	    display: flex;
+	    align-items: center;
+	    align-self: center;
+	    margin-top: 0;
+	    font-weight: 400;
+	    line-height: 1.3;
+	    color: #b9d9d9;
+	    white-space: nowrap;
+	}
+
+	.week-nav select {
+	    max-width: 170px;
+	    padding: 4px 8px;
+	    border: 1px solid #6c929e;
+	    border-radius: 14px;
+	    background: #172b40;
+	    color: #ffffff;
+	    font: inherit;
+	    cursor: pointer;
+	}
+
+	.week-nav select option {
+	    background: #172b40;
+	    color: #ffffff;
+	}
     section {
         padding: 26px 30px;
         margin-bottom: 20px;
@@ -180,12 +237,20 @@ cat > "$TEMP_FILE" <<EOF
 </head>
 <body>
 <header>
-    <h1>Server Status Report</h1>
-    <p>Week 3: Linux command line and Bash scripting</p>
-    <p>A Bash script generated this page automatically.</p>
+	<h1>My Linux Server</h1>
+	<div class="week-row">
+	    <span class="week">WEEK 03 · SERVER MONITORING</span>
+	    <nav class="week-nav">
+	        <label for="week-select">Select week:</label>
+	        <select id="week-select" onchange="if (this.value) window.location.href = this.value;">
+	            <option value="/">Week 1</option>
+	            <option value="/viikko2">Week 2</option>
+	            <option value="/viikko3/" selected>Week 3</option>
+	        </select>
+	    </nav>
+</div>
 </header>
 
-<main>
     <section>
         <h2>Current server status</h2>
         <div class="table-container" style="margin-bottom: 15px">
@@ -214,6 +279,7 @@ cat > "$TEMP_FILE" <<EOF
             <li><code>uptime -p</code> displays how long the server has been running.</li>
             <li><code>df -P /</code> reports root filesystem usage; <code>awk</code> extracts the percentage.</li>
             <li><code>free -m</code> reports memory in MiB.</li>
+	    <li><code>scp screenshot.jpg user@remote_host:/remote/directory/</code> was used to copy a file from a local to VM.</li>
         </ul>
     </section>
 
@@ -250,18 +316,19 @@ cat > "$TEMP_FILE" <<EOF
         </div>
         <h3>Automatic updates</h3>
         <p>Record the report generation times from at least two consecutive updates.</p>
-        <h3>Reboot test</h3>
-        <p>Record whether the Week 2 application and Week 3 report worked after rebooting the VM.</p>
+	<img src="/viikko3/alma.jpg" style="max-width: 100%; height: auto; border-radius: 5px;">
+	<h3>Reboot test</h3>
+        <p>Services started with virtual machine after rebooting.</p>
     </section>
 
     <section>
         <h2>What I learned</h2>
-        <p>I found commands easy and familiar. Script made me scratch my head several times, since during this task I found it hard to focus on one problem at once. Also piping bash commands are new for me even though I have used Linux as my main OS for 3 years now. On top of that using results as variables generates many possibilities if I want to automate something within my own system. Systemd timer caused some serious headscratching and AI helped me to find solution: At .service file row ExecStart expected /bin/bash before the pointing route to automated script.</p>
+        <p>I found commands easy and familiar. Script made me scratch my head several times, since during this task I found it hard to focus on one problem at once. Also piping bash commands are new for me even though I have used Linux as my main OS for 3 years now. On top of that using results as variables generates many possibilities if I want to automate something within my own system. Systemd timer caused some serious headscratching and AI helped me to find solution: At .service file row ExecStart expected /bin/bash before the pointing route to automated script. Also this was my first time using SCP to transfer a file.</p>
     </section>
-</main>
 
 <footer>
-    <p><a href="https://github.com/tslts/linux-server-projects.git">View the source code on GitHub</a></p>
+    	<p>&copy; TVT26KMO Linux Server Project</p>
+	<p><a href="https://github.com/tslts/linux-server-projects.git">↗ GitHub</a></p>
 </footer>
 </body>
 </html>
