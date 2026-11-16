@@ -1,0 +1,7 @@
+[Unit]
+Description=Update Week 3 system report
+
+[Service]
+Type=oneshot
+User=almalinux
+ExecStart=/bin/bash /home/almalinux/viikko3/monitor.sh
